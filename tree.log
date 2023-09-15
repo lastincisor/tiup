@@ -1,0 +1,838 @@
+.
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+├── SECURITY.md
+├── bin
+│   ├── tiup
+│   ├── tiup-client
+│   ├── tiup-cluster
+│   ├── tiup-dm
+│   ├── tiup-playground
+│   └── tiup-server
+├── cmd
+│   ├── clean.go
+│   ├── cmd_test.go
+│   ├── env.go
+│   ├── history.go
+│   ├── install.go
+│   ├── list.go
+│   ├── mirror.go
+│   ├── root.go
+│   ├── status.go
+│   ├── telemetry.go
+│   ├── testdata
+│   │   ├── test-v1.1.1-darwin-amd64.sha1
+│   │   ├── test-v1.1.1-darwin-amd64.tar.gz
+│   │   ├── test-v1.1.1-linux-amd64.sha1
+│   │   ├── test-v1.1.1-linux-amd64.tar.gz
+│   │   ├── tiup-component-test.index
+│   │   └── tiup-manifest.index
+│   ├── uninstall.go
+│   └── update.go
+├── code_review_guide.md
+├── components
+│   ├── bench
+│   │   └── README.md
+│   ├── client
+│   │   ├── Makefile
+│   │   ├── endpoint.go
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   └── main.go
+│   ├── cluster
+│   │   ├── command
+│   │   │   ├── audit.go
+│   │   │   ├── check.go
+│   │   │   ├── clean.go
+│   │   │   ├── deploy.go
+│   │   │   ├── destroy.go
+│   │   │   ├── disable.go
+│   │   │   ├── display.go
+│   │   │   ├── edit_config.go
+│   │   │   ├── enable.go
+│   │   │   ├── exec.go
+│   │   │   ├── import.go
+│   │   │   ├── list.go
+│   │   │   ├── meta.go
+│   │   │   ├── patch.go
+│   │   │   ├── prune.go
+│   │   │   ├── reload.go
+│   │   │   ├── rename.go
+│   │   │   ├── replay.go
+│   │   │   ├── restart.go
+│   │   │   ├── root.go
+│   │   │   ├── root_test.go
+│   │   │   ├── scale_in.go
+│   │   │   ├── scale_out.go
+│   │   │   ├── show_config.go
+│   │   │   ├── start.go
+│   │   │   ├── stop.go
+│   │   │   ├── telemetry.go
+│   │   │   ├── template.go
+│   │   │   ├── template_test.go
+│   │   │   ├── test.go
+│   │   │   ├── tls.go
+│   │   │   ├── transfer.go
+│   │   │   └── upgrade.go
+│   │   ├── main.go
+│   │   └── main_test.go
+│   ├── ctl
+│   │   └── main.go
+│   ├── dm
+│   │   ├── ansible
+│   │   │   ├── import.go
+│   │   │   ├── import_test.go
+│   │   │   ├── testdata
+│   │   │   │   ├── ansible
+│   │   │   │   │   ├── ansible.cfg
+│   │   │   │   │   ├── hosts.ini
+│   │   │   │   │   └── inventory.ini
+│   │   │   │   ├── deploy_dir
+│   │   │   │   │   ├── 172.19.0.101
+│   │   │   │   │   │   ├── conf
+│   │   │   │   │   │   │   ├── dm-master.toml
+│   │   │   │   │   │   │   └── dm-worker.toml
+│   │   │   │   │   │   └── scripts
+│   │   │   │   │   │       ├── run_alertmanager.sh
+│   │   │   │   │   │       ├── run_dm-master.sh
+│   │   │   │   │   │       ├── run_dm-worker.sh
+│   │   │   │   │   │       ├── run_grafana.sh
+│   │   │   │   │   │       └── run_prometheus.sh
+│   │   │   │   │   └── 172.19.0.102
+│   │   │   │   │       ├── conf
+│   │   │   │   │       │   └── dm-worker.toml
+│   │   │   │   │       └── scripts
+│   │   │   │   │           └── run_dm-worker.sh
+│   │   │   │   └── readme.txt
+│   │   │   └── worker.go
+│   │   ├── command
+│   │   │   ├── audit.go
+│   │   │   ├── deploy.go
+│   │   │   ├── deploy_test.go
+│   │   │   ├── destroy.go
+│   │   │   ├── disable.go
+│   │   │   ├── display.go
+│   │   │   ├── edit_config.go
+│   │   │   ├── enable.go
+│   │   │   ├── exec.go
+│   │   │   ├── import.go
+│   │   │   ├── list.go
+│   │   │   ├── meta.go
+│   │   │   ├── patch.go
+│   │   │   ├── prune.go
+│   │   │   ├── reload.go
+│   │   │   ├── replay.go
+│   │   │   ├── restart.go
+│   │   │   ├── root.go
+│   │   │   ├── scale_in.go
+│   │   │   ├── scale_out.go
+│   │   │   ├── start.go
+│   │   │   ├── stop.go
+│   │   │   ├── template.go
+│   │   │   ├── template_test.go
+│   │   │   └── upgrade.go
+│   │   ├── main.go
+│   │   ├── main_test.go
+│   │   ├── spec
+│   │   │   ├── bindversion.go
+│   │   │   ├── cluster.go
+│   │   │   ├── logic.go
+│   │   │   ├── topology_dm.go
+│   │   │   └── topology_dm_test.go
+│   │   └── task
+│   │       └── update_dm_meta.go
+│   ├── doc
+│   │   └── main.go
+│   ├── errdoc
+│   │   ├── errdoc-gen
+│   │   │   ├── README.md
+│   │   │   └── main.go
+│   │   ├── main.go
+│   │   ├── spec
+│   │   │   └── spec.go
+│   │   └── testdata
+│   │       └── tidb.toml
+│   └── playground
+│       ├── command.go
+│       ├── env.go
+│       ├── grafana.go
+│       ├── grafana_test.go
+│       ├── instance
+│       │   ├── drainer.go
+│       │   ├── instance.go
+│       │   ├── pd.go
+│       │   ├── proc_attr_default.go
+│       │   ├── proc_attr_linux.go
+│       │   ├── process.go
+│       │   ├── pump.go
+│       │   ├── ticdc.go
+│       │   ├── tidb.go
+│       │   ├── tiflash.go
+│       │   ├── tiflash_config.go
+│       │   ├── tiflash_proxy_config.go
+│       │   ├── tikv.go
+│       │   ├── tikv_cdc.go
+│       │   └── tikv_config.go
+│       ├── main.go
+│       ├── main_test.go
+│       ├── monitor.go
+│       ├── ngmonitoring.go
+│       ├── playground.go
+│       └── playground_test.go
+├── doc
+│   ├── README.md
+│   ├── design
+│   │   ├── README.md
+│   │   ├── checkpoint.md
+│   │   ├── manifest.md
+│   │   └── requirements.md
+│   ├── dev
+│   │   ├── README.md
+│   │   └── release-note-guide.md
+│   └── user
+│       ├── README.md
+│       ├── bench.md
+│       ├── cluster.md
+│       ├── mirrors.md
+│       ├── overview.md
+│       ├── package-manage.md
+│       ├── package.md
+│       └── playground.md
+├── docker
+│   ├── README.md
+│   ├── control
+│   │   ├── Dockerfile
+│   │   ├── bashrc
+│   │   └── init.sh
+│   ├── docker-compose.dev.yml
+│   ├── docker-compose.dm.yml.tpl
+│   ├── docker-compose.yml.tpl
+│   ├── node
+│   │   ├── Dockerfile
+│   │   ├── bashrc
+│   │   └── run.sh
+│   ├── secret
+│   └── up.sh
+├── embed
+│   ├── embed.go
+│   ├── embed_test.go
+│   ├── examples
+│   │   ├── cluster
+│   │   │   ├── local.tpl
+│   │   │   ├── minimal.yaml
+│   │   │   ├── multi-dc.yaml
+│   │   │   └── topology.example.yaml
+│   │   └── dm
+│   │       ├── local.tpl
+│   │       ├── minimal.yaml
+│   │       └── topology.example.yaml
+│   └── templates
+│       ├── config
+│       │   ├── alertmanager.yml
+│       │   ├── blackbox.yml.tpl
+│       │   ├── dashboard.yml.tpl
+│       │   ├── datasource.yml.tpl
+│       │   ├── grafana.ini.tpl
+│       │   ├── ngmonitoring.toml.tpl
+│       │   ├── prometheus.yml.tpl
+│       │   ├── spark-defaults.conf.tpl
+│       │   └── spark-log4j.properties.tpl
+│       ├── scripts
+│       │   ├── run_alertmanager.sh.tpl
+│       │   ├── run_blackbox_exporter.sh.tpl
+│       │   ├── run_cdc.sh.tpl
+│       │   ├── run_dm-master.sh.tpl
+│       │   ├── run_dm-master_scale.sh.tpl
+│       │   ├── run_dm-worker.sh.tpl
+│       │   ├── run_drainer.sh.tpl
+│       │   ├── run_grafana.sh.tpl
+│       │   ├── run_node_exporter.sh.tpl
+│       │   ├── run_pd.sh.tpl
+│       │   ├── run_pd_scale.sh.tpl
+│       │   ├── run_prometheus.sh.tpl
+│       │   ├── run_pump.sh.tpl
+│       │   ├── run_tidb-dashboard.sh.tpl
+│       │   ├── run_tidb.sh.tpl
+│       │   ├── run_tiflash.sh.tpl
+│       │   ├── run_tikv-cdc.sh.tpl
+│       │   ├── run_tikv.sh.tpl
+│       │   ├── spark-env.sh.tpl
+│       │   └── start_tispark_slave.sh.tpl
+│       └── systemd
+│           ├── system.service.tpl
+│           └── tispark.service.tpl
+├── examples -> embed/examples
+├── go.mod
+├── go.sum
+├── install.sh
+├── main.go
+├── main_test.go
+├── pkg
+│   ├── base52
+│   │   ├── base52.go
+│   │   └── base52_test.go
+│   ├── checkpoint
+│   │   ├── checkpoint.go
+│   │   ├── checkpoint_test.go
+│   │   ├── field.go
+│   │   └── gotrack.go
+│   ├── cluster
+│   │   ├── ansible
+│   │   │   ├── config.go
+│   │   │   ├── import.go
+│   │   │   ├── import_test.go
+│   │   │   ├── inventory.go
+│   │   │   ├── service.go
+│   │   │   ├── service_test.go
+│   │   │   └── test-data
+│   │   │       ├── ansible.cfg
+│   │   │       ├── group_vars
+│   │   │       │   ├── alertmanager_servers.yml
+│   │   │       │   ├── all.yml
+│   │   │       │   ├── drainer_servers.yml
+│   │   │       │   ├── grafana_servers.yml
+│   │   │       │   ├── importer_server.yml
+│   │   │       │   ├── lightning_server.yml
+│   │   │       │   ├── monitored_servers.yml
+│   │   │       │   ├── monitoring_servers.yml
+│   │   │       │   ├── pd_servers.yml
+│   │   │       │   ├── pump_servers.yml
+│   │   │       │   ├── tidb_servers.yml
+│   │   │       │   ├── tiflash_servers.yml
+│   │   │       │   └── tikv_servers.yml
+│   │   │       ├── inventory.ini
+│   │   │       └── meta.yaml
+│   │   ├── api
+│   │   │   ├── binlog.go
+│   │   │   ├── cdcapi.go
+│   │   │   ├── dmapi.go
+│   │   │   ├── dmpb
+│   │   │   │   ├── README.md
+│   │   │   │   ├── dmmaster.pb.go
+│   │   │   │   ├── dmmaster.pb.gw.go
+│   │   │   │   └── dmworker.pb.go
+│   │   │   ├── error.go
+│   │   │   ├── error_test.go
+│   │   │   ├── pdapi.go
+│   │   │   ├── tikv_cdc.go
+│   │   │   ├── types.go
+│   │   │   └── typeutil
+│   │   │       ├── README.md
+│   │   │       ├── duration.go
+│   │   │       ├── duration_test.go
+│   │   │       ├── size.go
+│   │   │       ├── size_test.go
+│   │   │       ├── string_slice.go
+│   │   │       └── string_slice_test.go
+│   │   ├── audit
+│   │   │   ├── audit.go
+│   │   │   └── audit_test.go
+│   │   ├── clusterutil
+│   │   │   ├── cluster.go
+│   │   │   └── cluster_name.go
+│   │   ├── ctxt
+│   │   │   ├── context.go
+│   │   │   └── event_bus.go
+│   │   ├── executor
+│   │   │   ├── checkpoint.go
+│   │   │   ├── executor.go
+│   │   │   ├── local.go
+│   │   │   ├── local_test.go
+│   │   │   ├── scp.go
+│   │   │   ├── ssh.go
+│   │   │   └── ssh_test.go
+│   │   ├── manager
+│   │   │   ├── basic.go
+│   │   │   ├── builder.go
+│   │   │   ├── cacert.go
+│   │   │   ├── check.go
+│   │   │   ├── cleanup.go
+│   │   │   ├── deploy.go
+│   │   │   ├── destroy.go
+│   │   │   ├── display.go
+│   │   │   ├── display_test.go
+│   │   │   ├── edit_config.go
+│   │   │   ├── exec.go
+│   │   │   ├── list.go
+│   │   │   ├── manager.go
+│   │   │   ├── manager_test.go
+│   │   │   ├── patch.go
+│   │   │   ├── reload.go
+│   │   │   ├── rename.go
+│   │   │   ├── scale_in.go
+│   │   │   ├── scale_out.go
+│   │   │   ├── show_config.go
+│   │   │   ├── tls.go
+│   │   │   ├── transfer.go
+│   │   │   ├── transfer_test.go
+│   │   │   └── upgrade.go
+│   │   ├── module
+│   │   │   ├── module.go
+│   │   │   ├── shell.go
+│   │   │   ├── systemd.go
+│   │   │   ├── user.go
+│   │   │   └── wait_for.go
+│   │   ├── operation
+│   │   │   ├── action.go
+│   │   │   ├── check.go
+│   │   │   ├── destroy.go
+│   │   │   ├── download.go
+│   │   │   ├── operation.go
+│   │   │   ├── pd_member.go
+│   │   │   ├── scale_in.go
+│   │   │   ├── systemd.go
+│   │   │   ├── telemetry.go
+│   │   │   └── upgrade.go
+│   │   ├── spec
+│   │   │   ├── alertmanager.go
+│   │   │   ├── bindversion.go
+│   │   │   ├── cdc.go
+│   │   │   ├── dashboard.go
+│   │   │   ├── drainer.go
+│   │   │   ├── grafana.go
+│   │   │   ├── grafana_test.go
+│   │   │   ├── instance.go
+│   │   │   ├── monitoring.go
+│   │   │   ├── monitoring_test.go
+│   │   │   ├── parse_topology.go
+│   │   │   ├── parse_topology_test.go
+│   │   │   ├── pd.go
+│   │   │   ├── profile.go
+│   │   │   ├── pump.go
+│   │   │   ├── server_config.go
+│   │   │   ├── server_config_test.go
+│   │   │   ├── spec.go
+│   │   │   ├── spec_manager.go
+│   │   │   ├── spec_manager_test.go
+│   │   │   ├── spec_test.go
+│   │   │   ├── testdata
+│   │   │   │   ├── countdir.yaml
+│   │   │   │   ├── dashboards
+│   │   │   │   │   └── tidb.json
+│   │   │   │   ├── rules
+│   │   │   │   │   └── tidb.rules.yml
+│   │   │   │   └── topology_err.yaml
+│   │   │   ├── tidb.go
+│   │   │   ├── tiflash.go
+│   │   │   ├── tikv.go
+│   │   │   ├── tikv_cdc.go
+│   │   │   ├── tispark.go
+│   │   │   ├── util.go
+│   │   │   ├── util_test.go
+│   │   │   ├── validate.go
+│   │   │   └── validate_test.go
+│   │   ├── task
+│   │   │   ├── action.go
+│   │   │   ├── backup_component.go
+│   │   │   ├── builder.go
+│   │   │   ├── check.go
+│   │   │   ├── copy_component.go
+│   │   │   ├── copy_file.go
+│   │   │   ├── download.go
+│   │   │   ├── env_init.go
+│   │   │   ├── func.go
+│   │   │   ├── init_config.go
+│   │   │   ├── init_config_test.go
+│   │   │   ├── install_package.go
+│   │   │   ├── limits.go
+│   │   │   ├── mkdir.go
+│   │   │   ├── monitored_config.go
+│   │   │   ├── rmdir.go
+│   │   │   ├── scale_config.go
+│   │   │   ├── shell.go
+│   │   │   ├── ssh.go
+│   │   │   ├── ssh_keygen.go
+│   │   │   ├── ssh_keyset.go
+│   │   │   ├── step.go
+│   │   │   ├── sysctl.go
+│   │   │   ├── systemd.go
+│   │   │   ├── task.go
+│   │   │   ├── tls.go
+│   │   │   ├── update_meta.go
+│   │   │   └── update_topology.go
+│   │   └── template
+│   │       ├── config
+│   │       │   ├── alertmanager.go
+│   │       │   ├── blackbox.go
+│   │       │   ├── config.go
+│   │       │   ├── dashboard.go
+│   │       │   ├── datasource.go
+│   │       │   ├── grafana.go
+│   │       │   ├── ngmonitoring.go
+│   │       │   ├── prometheus.go
+│   │       │   └── tispark.go
+│   │       ├── install
+│   │       │   └── local_install.sh.go
+│   │       ├── scripts
+│   │       │   ├── alertmanager.go
+│   │       │   ├── blackbox_exporter.go
+│   │       │   ├── cdc.go
+│   │       │   ├── dashboard.go
+│   │       │   ├── dm_master.go
+│   │       │   ├── dm_worker.go
+│   │       │   ├── drainer.go
+│   │       │   ├── grafana.go
+│   │       │   ├── monitoring.go
+│   │       │   ├── node_exporter.go
+│   │       │   ├── pd.go
+│   │       │   ├── pd_test.go
+│   │       │   ├── pump.go
+│   │       │   ├── scripts.go
+│   │       │   ├── tidb.go
+│   │       │   ├── tiflash.go
+│   │       │   ├── tikv.go
+│   │       │   ├── tikv_cdc.go
+│   │       │   └── tispark.go
+│   │       ├── systemd
+│   │       │   ├── system.go
+│   │       │   └── tispark.go
+│   │       └── template.go
+│   ├── crypto
+│   │   ├── ca.go
+│   │   ├── ca_test.go
+│   │   ├── keys.go
+│   │   ├── rand
+│   │   │   ├── passwd.go
+│   │   │   ├── passwd_test.go
+│   │   │   └── rand.go
+│   │   ├── rsa.go
+│   │   └── rsa_test.go
+│   ├── environment
+│   │   ├── debug.go
+│   │   ├── env.go
+│   │   ├── history.go
+│   │   └── tiup.go
+│   ├── exec
+│   │   └── run.go
+│   ├── localdata
+│   │   ├── config.go
+│   │   ├── constant.go
+│   │   ├── profile.go
+│   │   └── profile_test.go
+│   ├── logger
+│   │   ├── audit.go
+│   │   ├── debug.go
+│   │   ├── logger.go
+│   │   └── printer
+│   │       ├── log.go
+│   │       ├── logger.go
+│   │       └── verbose.go
+│   ├── meta
+│   │   ├── err.go
+│   │   ├── err_test.go
+│   │   ├── paths.go
+│   │   └── resource_ctrl.go
+│   ├── proxy
+│   │   ├── http_proxy.go
+│   │   ├── proxy.go
+│   │   └── tcp_proxy.go
+│   ├── queue
+│   │   ├── any_queue.go
+│   │   └── any_queue_test.go
+│   ├── repository
+│   │   ├── clone_mirror.go
+│   │   ├── constant.go
+│   │   ├── merge_mirror.go
+│   │   ├── merge_mirror_test.go
+│   │   ├── mirror.go
+│   │   ├── model
+│   │   │   ├── error.go
+│   │   │   ├── model.go
+│   │   │   └── publish.go
+│   │   ├── progress.go
+│   │   ├── progress_test.go
+│   │   ├── repository.go
+│   │   ├── store
+│   │   │   ├── local.go
+│   │   │   ├── store.go
+│   │   │   ├── store_test.go
+│   │   │   ├── sync.go
+│   │   │   └── txn.go
+│   │   ├── testdata
+│   │   │   ├── manifests
+│   │   │   │   ├── 1.alertmanager.json
+│   │   │   │   ├── 1.bench.json
+│   │   │   │   ├── 1.blackbox_exporter.json
+│   │   │   │   ├── 1.cdc.json
+│   │   │   │   ├── 1.client.json
+│   │   │   │   ├── 1.cluster.json
+│   │   │   │   ├── 1.ctl.json
+│   │   │   │   ├── 1.doc.json
+│   │   │   │   ├── 1.drainer.json
+│   │   │   │   ├── 1.grafana.json
+│   │   │   │   ├── 1.index.json
+│   │   │   │   ├── 1.insight.json
+│   │   │   │   ├── 1.mirrors.json
+│   │   │   │   ├── 1.node_exporter.json
+│   │   │   │   ├── 1.package.json
+│   │   │   │   ├── 1.pd.json
+│   │   │   │   ├── 1.playground.json
+│   │   │   │   ├── 1.prometheus.json
+│   │   │   │   ├── 1.pump.json
+│   │   │   │   ├── 1.pushgateway.json
+│   │   │   │   ├── 1.root.json
+│   │   │   │   ├── 1.tidb.json
+│   │   │   │   ├── 1.tiflash.json
+│   │   │   │   ├── 1.tikv.json
+│   │   │   │   ├── root.json
+│   │   │   │   ├── snapshot.json
+│   │   │   │   └── timestamp.json
+│   │   │   └── polluted
+│   │   │       ├── bin
+│   │   │       │   └── root.json
+│   │   │       └── manifests
+│   │   │           ├── index.json
+│   │   │           ├── snapshot.json
+│   │   │           ├── tidb.json
+│   │   │           └── timestamp.json
+│   │   ├── utils
+│   │   │   └── hash.go
+│   │   ├── v1_repository.go
+│   │   ├── v1_repository_test.go
+│   │   └── v1manifest
+│   │       ├── key_store.go
+│   │       ├── keys.go
+│   │       ├── keys_test.go
+│   │       ├── local_manifests.go
+│   │       ├── local_manifests_test.go
+│   │       ├── manifest.go
+│   │       ├── manifest_test.go
+│   │       ├── repo.go
+│   │       ├── testdata
+│   │       │   └── polluted
+│   │       │       ├── bin
+│   │       │       │   └── root.json
+│   │       │       └── manifests
+│   │       │           ├── index.json
+│   │       │           ├── snapshot.json
+│   │       │           ├── tidb.json
+│   │       │           └── timestamp.json
+│   │       ├── types.go
+│   │       └── types_test.go
+│   ├── set
+│   │   ├── any_set.go
+│   │   ├── any_set_test.go
+│   │   ├── string_set.go
+│   │   └── string_set_test.go
+│   ├── telemetry
+│   │   ├── generate.sh
+│   │   ├── meta.go
+│   │   ├── meta_test.go
+│   │   ├── node_info.go
+│   │   ├── report.go
+│   │   ├── report.pb.go
+│   │   ├── report.proto
+│   │   ├── report_test.go
+│   │   ├── scrub.go
+│   │   ├── scrub_test.go
+│   │   ├── telemetry.go
+│   │   ├── telemetry_test.go
+│   │   └── testdata
+│   │       ├── full.yaml
+│   │       ├── full.yaml.out
+│   │       ├── simple.yaml
+│   │       ├── simple.yaml.out
+│   │       └── single
+│   │           └── nilvalue.yaml
+│   ├── tidbver
+│   │   └── tidbver.go
+│   ├── tui
+│   │   ├── cliutil.go
+│   │   ├── color.go
+│   │   ├── progress
+│   │   │   ├── display_props.go
+│   │   │   ├── example_single_bar_test.go
+│   │   │   ├── multi_bar.go
+│   │   │   ├── progress.go
+│   │   │   ├── renderer.go
+│   │   │   ├── single_bar.go
+│   │   │   └── terminal.go
+│   │   ├── ssh.go
+│   │   └── tui.go
+│   ├── utils
+│   │   ├── args.go
+│   │   ├── diff.go
+│   │   ├── diff_test.go
+│   │   ├── edit.go
+│   │   ├── error.go
+│   │   ├── error_test.go
+│   │   ├── freeport.go
+│   │   ├── freeport_test.go
+│   │   ├── http.go
+│   │   ├── http_client.go
+│   │   ├── ioutil.go
+│   │   ├── ioutil_test.go
+│   │   ├── mock
+│   │   │   └── mock.go
+│   │   ├── regexp.go
+│   │   ├── regexp_test.go
+│   │   ├── retry.go
+│   │   ├── semver.go
+│   │   ├── semver_test.go
+│   │   ├── sha.go
+│   │   ├── testdata
+│   │   │   └── test.tar.gz
+│   │   ├── user.go
+│   │   ├── utils.go
+│   │   └── utils_test.go
+│   └── version
+│       ├── types.go
+│       └── version.go
+├── server
+│   ├── handler
+│   │   ├── component.go
+│   │   ├── error.go
+│   │   ├── handler.go
+│   │   ├── rotate.go
+│   │   ├── tarball.go
+│   │   └── types.go
+│   ├── main.go
+│   ├── package
+│   │   └── package.go
+│   ├── rotate
+│   │   ├── component.go
+│   │   ├── root.go
+│   │   └── server.go
+│   ├── router.go
+│   ├── server.go
+│   ├── session
+│   │   └── session.go
+│   └── static.go
+├── tests
+│   ├── Makefile
+│   ├── expected
+│   │   └── tiup
+│   │       ├── tiup-binary-package.output
+│   │       ├── tiup-clean-all.output
+│   │       ├── tiup-h.output
+│   │       ├── tiup-help-ctl.output
+│   │       ├── tiup-help-doc.output
+│   │       ├── tiup-help-install.output
+│   │       ├── tiup-help.output
+│   │       ├── tiup-install-ctl.output
+│   │       ├── tiup-install-doc.output
+│   │       ├── tiup-install-not-exists.output
+│   │       ├── tiup-install-package.output
+│   │       ├── tiup-install-test.output
+│   │       ├── tiup-install.output
+│   │       ├── tiup-run-test-flag.output
+│   │       ├── tiup-run-test-v1.1.1.output
+│   │       ├── tiup-run-test.output
+│   │       ├── tiup-run-test0.output
+│   │       ├── tiup-run-test2.output
+│   │       ├── tiup-run-test3.output
+│   │       ├── tiup-self-update.output
+│   │       ├── tiup-uninstall-all.output
+│   │       ├── tiup-uninstall-test-all.output
+│   │       ├── tiup-uninstall-test-v1.1.2.output
+│   │       ├── tiup-uninstall-test.output
+│   │       ├── tiup-uninstall.output
+│   │       ├── tiup-update-not-exists.output
+│   │       ├── tiup-update-test-nightly.output
+│   │       ├── tiup-update-test.output
+│   │       └── tiup.output
+│   ├── tiup
+│   │   ├── bin
+│   │   │   └── root.json
+│   │   ├── test_tiup.sh
+│   │   └── tiup.toml
+│   ├── tiup-cluster
+│   │   ├── README.md
+│   │   ├── cover
+│   │   ├── local
+│   │   │   ├── alertmanager
+│   │   │   │   └── alertmanager.yml
+│   │   │   ├── grafana
+│   │   │   │   └── tidb.json
+│   │   │   └── prometheus
+│   │   │       └── tidb.rules.yml
+│   │   ├── root.json
+│   │   ├── run.sh
+│   │   ├── script
+│   │   │   ├── cmd_subtest.sh
+│   │   │   ├── detect_error.sh
+│   │   │   ├── pull_log.sh
+│   │   │   ├── scale_core.sh
+│   │   │   ├── scale_tools.sh
+│   │   │   ├── tikv_cdc.sh
+│   │   │   ├── upgrade.sh
+│   │   │   └── util.sh
+│   │   ├── test_cmd.sh
+│   │   ├── test_cmd_tls_native_ssh.sh
+│   │   ├── test_scale_core.sh
+│   │   ├── test_scale_core_tls.sh
+│   │   ├── test_scale_tools.sh
+│   │   ├── test_scale_tools_tls.sh
+│   │   ├── test_tikv_cdc.sh
+│   │   ├── test_upgrade.sh
+│   │   ├── test_upgrade_tls.sh
+│   │   ├── topo
+│   │   │   ├── full.yaml
+│   │   │   ├── full_scale_in_cdc.yaml
+│   │   │   ├── full_scale_in_grafana.yaml
+│   │   │   ├── full_scale_in_pd.yaml
+│   │   │   ├── full_scale_in_prometheus.yaml
+│   │   │   ├── full_scale_in_pump.yaml
+│   │   │   ├── full_scale_in_tidb.yaml
+│   │   │   ├── full_scale_in_tidb_2nd.yaml
+│   │   │   ├── full_scale_in_tiflash.yaml
+│   │   │   ├── full_scale_in_tikv.yaml
+│   │   │   ├── full_scale_in_tispark.yaml
+│   │   │   ├── full_tls.yaml
+│   │   │   ├── full_without_tiflash.yaml
+│   │   │   ├── tikv_cdc.yaml
+│   │   │   ├── upgrade.yaml
+│   │   │   └── upgrade_tls.yaml
+│   │   └── topology.yaml
+│   ├── tiup-dm
+│   │   ├── ansible_data
+│   │   │   ├── hosts.ini.tpl
+│   │   │   └── inventory.ini.tpl
+│   │   ├── cover
+│   │   ├── local
+│   │   │   ├── alertmanager
+│   │   │   │   └── alertmanager.yml
+│   │   │   ├── grafana
+│   │   │   │   ├── dm.json
+│   │   │   │   └── dm_instances.json
+│   │   │   └── prometheus
+│   │   │       └── dm_worker.rules.yml
+│   │   ├── root.json
+│   │   ├── run.sh
+│   │   ├── script
+│   │   │   ├── task
+│   │   │   │   ├── db1.prepare.sql
+│   │   │   │   ├── db2.prepare.sql
+│   │   │   │   ├── run.sh
+│   │   │   │   ├── source1.yml
+│   │   │   │   ├── source2.yml
+│   │   │   │   └── task.yaml
+│   │   │   └── util.sh
+│   │   ├── test_cmd.sh
+│   │   ├── test_import.sh
+│   │   ├── test_upgrade.sh
+│   │   └── topo
+│   │       ├── full_dm.yaml.tpl
+│   │       ├── full_dm_monitored.yaml.tpl
+│   │       ├── full_scale_in_dm-master.yaml.tpl
+│   │       ├── full_scale_in_dm-worker.yaml.tpl
+│   │       └── full_scale_in_grafana.yaml.tpl
+│   └── tiup-playground
+│       └── test_playground.sh
+├── tools
+│   ├── bin
+│   │   ├── golangci-lint
+│   │   └── revive
+│   └── check
+│       ├── check-tidy.sh
+│       ├── errcheck_excludes.txt
+│       ├── go.mod
+│       ├── go.sum
+│       ├── golangci.yaml
+│       └── revive.toml
+└── tree.log
+
+142 directories, 694 files

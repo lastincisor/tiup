@@ -62,6 +62,7 @@ var (
 	RoleTiSparkWorker = "tispark-worker"
 	TopoTypeTiDB      = "tidb-cluster"
 	TopoTypeDM        = "dm-cluster"
+	TopoTypeTEM       = "tem-server"
 )
 
 type (

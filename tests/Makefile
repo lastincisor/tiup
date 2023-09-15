@@ -1,4 +1,4 @@
-build_integration_test: build_tiup_playground_test build_tiup_cluster_test build_tiup_dm_test
+build_integration_test: build_tiup_playground_test build_tiup_cluster_test build_tiup_dm_test build_tiup_tem_test
 	@# Target: run the playground, cluster, and dm integration tests.
 
 build_tiup_playground_test: failpoint-enable
@@ -23,6 +23,14 @@ build_tiup_dm_test: failpoint-enable
 		-coverpkg=github.com/pingcap/tiup/... \
 		-o tests/tiup-dm/bin/tiup-dm.test \
 		github.com/pingcap/tiup/components/dm;
+	@$(FAILPOINT_DISABLE)
+
+build_tiup_tem_test: failpoint-enable
+	@# Target: run the tiup-tem tests
+	$(GOTEST) -c -cover -covermode=count \
+		-coverpkg=github.com/pingcap/tiup/... \
+		-o tests/tiup-dm/bin/tiup-tem.test \
+		github.com/pingcap/tiup/components/tem;
 	@$(FAILPOINT_DISABLE)
 
 build_tiup_test: failpoint-enable

@@ -1,0 +1,8 @@
+{"time":"2023-05-10T14:27:00.534738+08:00","command":"tiup tem deploy","exit_code":1}
+{"time":"2023-05-10T14:41:30.821763+08:00","command":"tiup tem deploy","exit_code":1}
+{"time":"2023-05-10T14:42:19.555907+08:00","command":"tiup tem deploy","exit_code":1}
+{"time":"2023-05-10T15:08:26.409407+08:00","command":"tiup tem deploy","exit_code":1}
+{"time":"2023-05-10T15:15:45.700893+08:00","command":"tiup mirror genkey --save","exit_code":0}
+{"time":"2023-05-10T15:16:21.334722+08:00","command":"tiup mirror genkey -p --save","exit_code":0}
+{"time":"2023-05-10T15:18:43.823224+08:00","command":"tiup mirror grant lastincisor -n lastincisor -k bba99201ba6328a9-public.json","exit_code":1}
+{"time":"2023-05-10T15:32:05.019136+08:00","command":"/Users/song/lastincisor/tiup/bin/tiup tem deploy","exit_code":1}

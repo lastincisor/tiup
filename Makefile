@@ -69,6 +69,10 @@ dm:
 	@# Target: build the tiup-dm component
 	$(GOBUILD) -ldflags '$(LDFLAGS)' -o bin/tiup-dm ./components/dm
 
+tem:
+	@# Target: build the tiup-tem component
+	$(GOBUILD) -ldflags '$(LDFLAGS)' -o bin/tiup-tem ./components/tem
+
 ctl:
 	@# Target: build the tiup-ctl component
 	$(GOBUILD) -ldflags '$(LDFLAGS)' -o bin/tiup-ctl ./components/ctl
